@@ -15,6 +15,7 @@ JSURL has been designed to be:
 ## Syntax
 
 Think of it as JSON with the following changes:
+
 * Curly braces (`{` and `}`) replaced by parentheses (`(` and `)`)
 * Square brackets (`[` and `]`) replaced by `(~` and `)`
 * Property names unquoted (but escaped -- see below).
@@ -23,6 +24,7 @@ Think of it as JSON with the following changes:
 * An extra tilde (`~`) at the very beginning.
 
 Property names and string values are escaped as follows:
+
 * Letters, digits, underscore (`_`), hyphen (`-`) and dot (`.`) are preserved.
 * Dollar sign (`$`) is replaced by exclamation mark (`!`)
 * Other characters with UNICODE value <= 0xff are encoded as *XX
