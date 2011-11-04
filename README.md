@@ -56,7 +56,7 @@ obj = JSURL.parse(str);
 
 # Installation
 
-The easiest way to install `streamline.js` is with NPM:
+The easiest way to install `jsurl` is with NPM:
 
 ```sh
 npm install jsurl
