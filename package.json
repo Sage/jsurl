@@ -1,0 +1,8 @@
+{
+  "name": "jsurl",
+  "description": "URL friendly JSON-like formatting and parsing",
+  "version": "0.1.0",
+  "author": "Bruno Jouhier",
+  "directories": {"lib": "./lib" },
+  "main": "index.js"
+}
