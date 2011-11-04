@@ -4,6 +4,7 @@ JSURL is an alternative to JSON + URL encoding (or JSON + base64 encoding).
 It makes it handy to pass complex values via URL query parameters.
 
 JSURL has been designed to be:
+
 * Compact: its output is much more compact than JSON + URL encoding (except in pathological cases). 
   It is even often slightly more compact than regular JSON!
 * Readable: its output is much more readable than JSON + URL encoding.
