@@ -28,8 +28,8 @@ Property names and string values are escaped as follows:
 
 * Letters, digits, underscore (`_`), hyphen (`-`) and dot (`.`) are preserved.
 * Dollar sign (`$`) is replaced by exclamation mark (`!`)
-* Other characters with UNICODE value <= 0xff are encoded as *XX
-* Characters with UNICODE value > 0xff are encoded as **XXXX
+* Other characters with UNICODE value <= `0xff` are encoded as `*XX`
+* Characters with UNICODE value > `0xff` are encoded as `**XXXX`
 
 ## Examples
 ``` json
@@ -41,7 +41,7 @@ Property names and string values are escaped as follows:
 
 ## API
 
-```javascript
+``` javascript
 var JSURL = require("jsurl");
 
 str = JSURL.stringify(obj);
