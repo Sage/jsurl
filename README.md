@@ -54,6 +54,14 @@ str = JSURL.stringify(obj);
 obj = JSURL.parse(str);
 ```
 
+# Installation
+
+The easiest way to install `streamline.js` is with NPM:
+
+```sh
+npm install jsurl
+```
+
 ## License
 
 This work is licensed under the [MIT license](http://en.wikipedia.org/wiki/MIT_License).
