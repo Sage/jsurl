@@ -32,9 +32,15 @@ Property names and string values are escaped as follows:
 * Characters with UNICODE value > `0xff` are encoded as `**XXXX`
 
 ## Examples
+
+JSON:
+
 ``` json
 {"name":"John Doe","age":42,children:["Mary","Bill"]}
 ```
+
+JSURL:
+
 ``` jsurl
 ~(name~'John*20Doe~age~42~children~(~'Mary~'Bill))
 ```
