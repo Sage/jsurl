@@ -36,7 +36,7 @@ Property names and string values are escaped as follows:
 JSON:
 
 ``` json
-{"name":"John Doe","age":42,children:["Mary","Bill"]}
+{"name":"John Doe","age":42,"children":["Mary","Bill"]}
 ```
 
 JSURL:
