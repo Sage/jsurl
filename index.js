@@ -1,1 +1,1 @@
-module.exports = require('./lib/jsurl')
+module.exports = require('./lib/jsurl');

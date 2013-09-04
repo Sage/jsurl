@@ -1,6 +1,10 @@
 var JSURL = require('jsurl');
 
-var obj = {name:"John Doe",age:42,children:["Mary","Bill"]};
+var obj = {
+	name: "John Doe",
+	age: 42,
+	children: ["Mary", "Bill"]
+};
 
 console.log("JSON    =" + JSON.stringify(obj));
 console.log("JSURL   =" + JSURL.stringify(obj));

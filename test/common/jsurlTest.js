@@ -1,9 +1,8 @@
-var module = QUnit.module;
+"use strict";
+QUnit.module(module.id);
 
 var JSURL = require("jsurl/lib/jsurl");
 var undefined;
-
-module('jsurl');
 
 function t(v, r) {
 	strictEqual(JSURL.stringify(v), r, "stringify " + (typeof v !== 'object' ? v : JSON.stringify(v)));
@@ -49,5 +48,15 @@ test('objects', 4, function() {
 	}, "~(c~null~d~false~e~0~f~'hello*20world**203c)");
 });
 test('mix', 2, function() {
-	t({ a: [[1, 2], [], {}], b: [], c: { d: "hello", e: {}, f: []}}, "~(a~(~(~1~2)~(~)~())~b~(~)~c~(d~'hello~e~()~f~(~)))");
+	t({
+		a: [
+			[1, 2],
+			[], {}],
+		b: [],
+		c: {
+			d: "hello",
+			e: {},
+			f: []
+		}
+	}, "~(a~(~(~1~2)~(~)~())~b~(~)~c~(d~'hello~e~()~f~(~)))");
 });
