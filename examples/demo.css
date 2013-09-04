@@ -1,0 +1,40 @@
+h2 {
+    padding: 0 0 0.3em 0;
+    margin: 0;
+}
+
+input[type="button"] {
+	margin: 0.5em;
+}
+
+textarea {
+    font-family: Courier;
+	font-size: small;
+	margin: 0.5em;
+	padding: 0.1em;
+    width: 100%;
+}
+
+table {
+    background-color: #D2E0E6;
+    border: 0;
+}
+
+tr {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+td {
+    font-family: Calibri, Helvetica, Arial;
+    margin: 0;
+    padding: 1.0em 1.0em;
+    border: 0;
+    text-align: center;
+    font-size: small;
+    color: #2b81af;
+}
+
+td.input {
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+    	<title>JSURL Test</title>
+        <link rel="stylesheet" href="demo.css" type="text/css" media="screen" />
+        <script src="../lib/jsurl.js" type="application/javascript"></script>
+        <script>
+        function execute(src, dst, fn, withAlert) {
+            var s = document.getElementById(src).value;
+            try {
+                s = fn(s);
+            } catch (ex) {
+                if (withAlert) return alert(ex.message);
+                s = ex.message;
+            }
+            document.getElementById(dst).value = s;
+        }
+        function json2jsurl(s) {
+            return JSURL.stringify(JSON.parse(s));
+        }
+        function jsurl2json(s) {
+            return JSON.stringify(JSURL.parse(s));
+        }
+        function beautify(s) {
+            return JSON.stringify(JSON.parse(s), null, '  ');
+        }
+        </script>
+    </head>
+    <body>
+        <form>
+            <table width="100%">
+                <tr>
+                    <td>
+                    	<h2>JSON</h2>
+                        <textarea id="json" align="left" cols="70" rows="45"></textarea>
+                        <br>
+                        <input id="btify" type="button" value="beautify" onclick="javascript:execute('json', 'json', beautify, true)"></input>
+                    </td>
+                    <td>
+                        <input id="parse" type="button" value="&gt;&gt;" onclick="javascript:execute('json', 'jsurl', json2jsurl)"></input>
+                        <br>
+                        <input id="stringify" type="button" value="&lt;&lt;" onclick="javascript:execute('jsurl', 'json', jsurl2json)"></input>
+                    </td>
+                    <td>
+                        <h2>JSURL</h2>
+                        <textarea id="jsurl" align="left" cols="70" rows="45"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        </body>
+    </html>
