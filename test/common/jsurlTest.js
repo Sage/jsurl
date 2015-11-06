@@ -1,7 +1,7 @@
 "use strict";
 QUnit.module(module.id);
 
-var JSURL = require("jsurl/lib/jsurl");
+var JSURL = require("../..");
 var undefined;
 
 function t(v, r) {
