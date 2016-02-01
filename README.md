@@ -39,16 +39,16 @@ JSON:
 {"name":"John Doe","age":42,"children":["Mary","Bill"]}
 ```
 
-JSURL:
-
-``` jsurl
-~(name~'John*20Doe~age~42~children~(~'Mary~'Bill))
-```
-
 JSON + URL encoding:
 
 ```
 %7B%22name%22%3A%22John%20Doe%22%2C%22age%22%3A42%2C%22children%22%3A%5B%22Mary%22%2C%22Bill%22%5D%7D
+```
+
+JSURL:
+
+``` jsurl
+~(name~'John*20Doe~age~42~children~(~'Mary~'Bill))
 ```
 
 ## API
