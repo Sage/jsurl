@@ -60,3 +60,10 @@ test('mix', 2, function() {
 		}
 	}, "~(a~(~(~1~2)~(~)~())~b~(~)~c~(d~'hello~e~()~f~(~)))");
 });
+
+test('percent-escpaed single quotes', 1, function() {
+	deepEqual(JSURL.parse("~(a~%27hello~b~%27world)"), {
+		a: 'hello',
+		b: 'world'
+	});
+});
