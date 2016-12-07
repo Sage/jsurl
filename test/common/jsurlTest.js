@@ -61,8 +61,15 @@ test('mix', 2, function() {
 	}, "~(a~(~(~1~2)~(~)~())~b~(~)~c~(d~'hello~e~()~f~(~)))");
 });
 
-test('percent-escpaed single quotes', 1, function() {
+test('percent-escaped single quotes', 1, function() {
 	deepEqual(JSURL.parse("~(a~%27hello~b~%27world)"), {
+		a: 'hello',
+		b: 'world'
+	});
+});
+
+test('percent-escaped percent-escaped single quotes', 1, function() {
+	deepEqual(JSURL.parse("~(a~%2527hello~b~%2525252527world)"), {
 		a: 'hello',
 		b: 'world'
 	});
