@@ -58,6 +58,9 @@ var JSURL = require("jsurl");
 
 str = JSURL.stringify(obj);
 obj = JSURL.parse(str);
+
+// return def instead of throwing on error
+obj = JSURL.tryParse(str[, def]);
 ```
 
 # Installation

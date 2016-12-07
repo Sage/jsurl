@@ -74,3 +74,10 @@ test('percent-escaped percent-escaped single quotes', 1, function() {
 		b: 'world'
 	});
 });
+
+test('tryParse', 4, function() {
+	strictEqual(JSURL.tryParse("~null"), null);
+	strictEqual(JSURL.tryParse("~1", 2), 1);
+	strictEqual(JSURL.tryParse("1"), undefined);
+	strictEqual(JSURL.tryParse("1", 0), 0);
+});
