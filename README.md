@@ -56,7 +56,9 @@ JSURL:
 ``` javascript
 var JSURL = require("jsurl");
 
+//Creates a String like '~(name~'John*20Doe~age~42~children~(~'Mary~'Bill))'
 str = JSURL.stringify(obj);
+//Creates an Object like '{"name":"John Doe","age":42,"children":["Mary","Bill"]}' 
 obj = JSURL.parse(str);
 
 // return def instead of throwing on error
