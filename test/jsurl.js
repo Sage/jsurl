@@ -81,3 +81,27 @@ test('tryParse', t => {
 	t.is(tryParse('1'), undefined)
 	t.is(tryParse('1', 0), 0)
 })
+
+test('parse performance', t => {
+  const n = Date.now()
+  const s = '~(a~%2527hello~b~%2525252527world)'
+	const count = 10000
+  for (let i = 0; i < count; i++) {
+    parse(s)
+  }
+  const ms = Date.now() - n
+  console.log(`${count} parsed in ${ms}ms, ${ms / count}ms/item`)
+  t.true(ms < 300)
+})
+
+test('stringify performance', t => {
+  const n = Date.now()
+  const v = { a: [ [1, 2], [], false, {}, true ], b: [], c: { d: 'hello', e: {}, f: [], g: true, n: null } }
+	const count = 10000
+  for (let i = 0; i < count; i++) {
+    stringify(v)
+  }
+  const ms = Date.now() - n
+  console.log(`${count} stringified in ${ms}ms, ${ms / count}ms/item`)
+  t.true(ms < 300)
+})
