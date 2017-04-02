@@ -1,12 +1,12 @@
 import test from 'ava'
-import JSURL from '../lib/jsurl'
+import {stringify, parse, tryParse} from '../lib/jsurl'
 
 // test macro, both directions
 const cmp = (t, v, s) => {
 	// regular
-	t.is(JSURL.stringify(v), s)
+	t.is(stringify(v), s)
 	// roundtrip
-	t.is(JSURL.stringify(JSURL.parse(s)), s)
+	t.is(stringify(parse(s)), s)
 }
 cmp.title = (title, v, s) => `${title} ${s}`
 
@@ -62,22 +62,22 @@ test(cmp, {
 }, "~(a~(~(~1~2)~(~)~())~b~(~)~c~(d~'hello~e~()~f~(~)))")
 
 test('percent-escaped single quotes', t => {
-	t.deepEqual(JSURL.parse('~(a~%27hello~b~%27world)'), {
+	t.deepEqual(parse('~(a~%27hello~b~%27world)'), {
 		a: 'hello',
 		b: 'world'
 	})
 })
 
 test('percent-escaped percent-escaped single quotes', t => {
-	t.deepEqual(JSURL.parse('~(a~%2527hello~b~%2525252527world)'), {
+	t.deepEqual(parse('~(a~%2527hello~b~%2525252527world)'), {
 		a: 'hello',
 		b: 'world'
 	})
 })
 
 test('tryParse', t => {
-	t.is(JSURL.tryParse('~null'), null)
-	t.is(JSURL.tryParse('~1', 2), 1)
-	t.is(JSURL.tryParse('1'), undefined)
-	t.is(JSURL.tryParse('1', 0), 0)
+	t.is(tryParse('~null'), null)
+	t.is(tryParse('~1', 2), 1)
+	t.is(tryParse('1'), undefined)
+	t.is(tryParse('1', 0), 0)
 })
