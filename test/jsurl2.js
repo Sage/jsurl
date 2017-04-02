@@ -20,7 +20,10 @@ test(cmp, 0, '0~')
 test(cmp, 1, '1~')
 test(cmp, -1.5, '-1.5~')
 test(cmp, 'hello world\u203c', 'hello_world\u203c~')
-test(cmp, ' !"#$%&\'()*+,-./09:;<=>?@AZ[\\]^_`az{|}~', '*_!"#*S*.&*"()***P,-./09:;<=>?@AZ[\\]^*_`az{|}*-~')
+test(cmp,
+	' !"#$%&\'()*+,-./09:;<=>?@AZ[\\]^_`az{|}~',
+	'*_!"#*S*.&*"*C*D***P,-./09:;<=>?@AZ[\\]^*_`az{|}*-~'
+)
 // JSON.stringify converts special numeric values to null
 test(cmp, NaN, '_N~')
 test(cmp, Infinity, '_N~')
@@ -52,8 +55,9 @@ test(cmp, {
 	t: true,
 	e: 0,
 	f: 'hello (world)\u203c'
-}, '(c~_N~d~_F~t~~e~0~f~hello_(world)\u203c~)~')
-
+}, '(c~_N~d~_F~t~~e~0~f~hello_*Cworld*D\u203c)~')
+test(cmp, {"()": {}, c: {"~": "()"}}, '(*C*D~()c~(*-~**C*D))~')
+test(cmp, {a: [[[1]]]}, '(a~!!!1)~')
 // mix
 test(cmp, {
 	a: [
@@ -71,17 +75,18 @@ test(cmp, {
 		n: null
 	},
 	b: [],
-}, '(a~!!1~2~~!~_F~_T~()~c~(d~hello~e~()f~!~g~~n~_N~)b~!~)~')
+}, '(a~!!1~2~~!~_F~_T~()~c~(d~hello~e~()f~!~g~~n~_N)b~!)~')
+test(cmp, [[{a: [{b: [[1]]}]}]], '!!(a~!(b~!!1))~')
 
 test('percent-escaped single quotes', t => {
-	t.deepEqual(parse('(a~*%27hello~b~*%27world~)~'), {
+	t.deepEqual(parse('(a~*%27hello~b~*%27world~)~', {deURI: true}), {
 		a: "'hello",
 		b: "'world"
 	})
 })
 
 test('percent-escaped percent-escaped single quotes', t => {
-	t.deepEqual(parse('(a~*%2527hello~b~*%2525252527world~)~'), {
+	t.deepEqual(parse('(a~*%2527hello~b~*%2525252527world~)~', {deURI: true}), {
 		a: "'hello",
 		b: "'world"
 	})
@@ -96,7 +101,8 @@ test('tryParse', t => {
 
 test('parse performance', t => {
 	const n = Date.now()
-	const s = '(a~*%2527hello~b~*%2525252527world~)~'
+	const v = { a: [ [1, 2], [], false, {}, true ], b: [], c: { d: 'hello', e: {}, f: [], g: true, n: null } }
+	const s = stringify(v)
 	const count = 10000
 	for (let i = 0; i < count; i++) {
 		parse(s)
