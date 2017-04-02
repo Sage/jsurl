@@ -5,6 +5,23 @@
 <script>
 	const count = 200000
 	const v = { a: [ [1, 2], [], false, {}, true ], b: [], c: { d: 'hello', e: {}, f: [], g: true, n: null } }
+	const JSONParse = () => {
+		const n = Date.now()
+		const s = JSON.stringify(v)
+		for (let i = 0; i < count; i++) {
+			JSON.parse(s)
+		}
+		const ms = Date.now() - n
+		console.log(`JSON: ${count} parsed in ${ms}ms, ${ms / count}ms/item`)
+	}
+	const JSONStringify = () => {
+		const n = Date.now()
+		for (let i = 0; i < count; i++) {
+			JSON.stringify(v)
+		}
+		const ms = Date.now() - n
+		console.log(`JSON: ${count} stringified in ${ms}ms, ${ms / count}ms/item`)
+	}
 	const v1Parse = () => {
 		const n = Date.now()
 		const s = JSURL.stringify(v)
@@ -40,6 +57,8 @@
 		console.log(`v2: ${count} stringified in ${ms}ms, ${ms / count}ms/item`)
 	}
 	window.onload = () => {
+		JSONParse()
+		JSONStringify()
 		v1Parse()
 		v1Stringify()
 		v2Parse()
