@@ -11,25 +11,25 @@ const cmp = (t, v, s) => {
 cmp.title = (title, v, s) => `${title} ${s}`
 
 // basic values
-test(cmp, undefined, '-U~')
-test(cmp, function () { foo(); }, '-U~')
-test(cmp, null, '-N~')
-test(cmp, false, '-F~')
+test(cmp, undefined, '_U~')
+test(cmp, function () { foo(); }, '_U~')
+test(cmp, null, '_N~')
+test(cmp, false, '_F~')
 test(cmp, true, '~')
 test(cmp, 0, '0~')
 test(cmp, 1, '1~')
 test(cmp, -1.5, '-1.5~')
 test(cmp, 'hello world\u203c', 'hello_world\u203c~')
-test(cmp, ' !"#$%&\'()*+,-./09:;<=>?@AZ[\\]^_`az{|}~', "*_!\"#*S*.&*\"()***P,-./09:;<=>?@AZ[\\]^*_`az{|}*-~")
+test(cmp, ' !"#$%&\'()*+,-./09:;<=>?@AZ[\\]^_`az{|}~', '*_!"#*S*.&*"()***P,-./09:;<=>?@AZ[\\]^*_`az{|}*-~')
 // JSON.stringify converts special numeric values to null
-test(cmp, NaN, '-N~')
-test(cmp, Infinity, '-N~')
-test(cmp, -Infinity, '-N~')
-test(cmp, new Date(1456898746898), '-D2016-03-02T06:05:46.898Z~')
-test(cmp, new Date('2017-04-01'), '-D2017-04-01~')
+test(cmp, NaN, '_N~')
+test(cmp, Infinity, '_N~')
+test(cmp, -Infinity, '_N~')
+test(cmp, new Date(1456898746898), '_D2016-03-02T06:05:46.898Z~')
+test(cmp, new Date('2017-04-01'), '_D2017-04-01~')
 
 // arrays
-test(cmp, [], '.~')
+test(cmp, [], '!~')
 test(cmp,
 	[
 		undefined, function () {
@@ -37,11 +37,11 @@ test(cmp,
 		},
 		null, false, 0, 'hello world\u203c'
 	],
-	".-U~-U~-N~-F~0~hello_world\u203c~"
+	'!_U~_U~_N~_F~0~hello_world\u203c~'
 )
 
 // objects
-test(cmp, {}, '_~')
+test(cmp, {}, '()~')
 test(cmp, {
 	a: undefined,
 	b: function () {
@@ -51,8 +51,8 @@ test(cmp, {
 	d: false,
 	t: true,
 	e: 0,
-	f: 'hello world\u203c'
-}, "_c~-N~d~-F~t~~e~0~f~hello_world\u203c~")
+	f: 'hello (world)\u203c'
+}, '(c~_N~d~_F~t~~e~0~f~hello_(world)\u203c~)~')
 
 // mix
 test(cmp, {
@@ -60,35 +60,35 @@ test(cmp, {
 		[1, 2],
 		[],
 		false,
-		{},
 		true,
+		{},
 	],
-	b: [],
 	c: {
 		d: 'hello',
 		e: {},
 		f: [],
 		g: true,
-		n: null,
-	}
-}, '_a~..1~2~~.~-F~_~-T~~b~.~c~_d~hello~e~_~f~.~g~~n~-N~')
+		n: null
+	},
+	b: [],
+}, '(a~!!1~2~~!~_F~_T~()~c~(d~hello~e~()f~!~g~~n~_N~)b~!~)~')
 
 test('percent-escaped single quotes', t => {
-	t.deepEqual(JSURL.parse('_a~*%27hello~b~*%27world~'), {
-		a: '\'hello',
-		b: '\'world',
+	t.deepEqual(JSURL.parse('(a~*%27hello~b~*%27world~)~'), {
+		a: "'hello",
+		b: "'world"
 	})
 })
 
 test('percent-escaped percent-escaped single quotes', t => {
-	t.deepEqual(JSURL.parse('_a~*%2527hello~b~*%2525252527world~'), {
-		a: '\'hello',
-		b: '\'world'
+	t.deepEqual(JSURL.parse('(a~*%2527hello~b~*%2525252527world~)~'), {
+		a: "'hello",
+		b: "'world"
 	})
 })
 
 test('tryParse', t => {
-	t.is(JSURL.tryParse('-N~'), null)
+	t.is(JSURL.tryParse('_N~'), null)
 	t.is(JSURL.tryParse('1~', 2), 1)
 	t.is(JSURL.tryParse('1'), undefined)
 	t.is(JSURL.tryParse('1', 0), 0)
