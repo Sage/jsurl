@@ -12,6 +12,7 @@
   "devDependencies": {
     "ava": "^0.18.2"
   },
+  "files": ["./lib", "./v1.js"],
   "directories": {
     "lib": "./lib"
   },

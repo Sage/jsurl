@@ -1,7 +1,7 @@
 {
   "name": "jsurl",
-  "main": "index.js",
-  "version": "0.1.0",
+  "main": "lib/jsurl2.js",
+  "version": "2.0.0-rc1",
   "homepage": "https://github.com/Sage/jsurl",
   "authors": [
     "Bruno Jouhier"
