@@ -135,3 +135,8 @@ test('stringify performance', t => {
 	console.log(`v2: ${count} stringified in ${ms}ms, ${ms / count}ms/item`)
 	t.true(ms < 300)
 })
+
+test('.toJSON()', t => {
+	const o = {s: 'hi', toJSON() {return this.s}}
+	t.is(stringify(o), 'hi~')
+})
