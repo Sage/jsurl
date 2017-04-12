@@ -4,12 +4,13 @@ import {stringify, parse, tryParse} from '../lib/jsurl2'
 // test macro, both directions
 const cmp = (t, v, s, short, rich) => {
 	// regular
-	t.is(stringify(v, {rich}), s)
+	t.notRegex(stringify(v, {rich}), /[%?#&=\n\r\0]/, 'has forbidden char');
+	t.is(stringify(v, {rich}), s, 'stringified wrong')
 	// roundtrip
-	t.is(stringify(parse(s), {rich}), s)
+	t.is(stringify(parse(s), {rich}), s, 'roundtrip fails')
 	// short
-	t.is(stringify(v, {short: true, rich}), short)
-	t.is(stringify(parse(short), {short: true, rich}), short)
+	t.is(stringify(v, {short: true, rich}), short, 'short stringified wrong')
+	t.is(stringify(parse(short), {short: true, rich}), short, 'short roundtrip fails')
 }
 cmp.title = (title, v, s) => `${title} ${s}`
 
@@ -25,9 +26,9 @@ test(cmp, -1.5, '-1.5~', '-1.5')
 test(cmp, '', '*~', '*')
 test(cmp, 'hello world\u203c', 'hello_world\u203c~', 'hello_world\u203c')
 test(cmp,
-	' !"#$%&\'()*+,-./09:;<=>?@AZ[\\]^_`az{|}~',
-	'*_!"#*S*.&*"*C*D***P,-./09:;<=>?@AZ[\\]^*_`az{|}*-~',
-	'*_!"#*S*.&*"*C*D***P,-./09:;<=>?@AZ[\\]^*_`az{|}*-'
+	' !"#$%&\'()*+,-./09:;<=>?@AZ[\\]^_`az{|}\n\r\0~',
+	'*_!"*H*S*.*A*"*C*D***P,-./09:;*L*E*G*Q@AZ[*B]^*_`az{|}*N*R*Z*-~',
+	'*_!"*H*S*.*A*"*C*D***P,-./09:;*L*E*G*Q@AZ[*B]^*_`az{|}*N*R*Z*-'
 )
 // JSON.stringify converts special numeric values to null
 test(cmp, NaN, '_N~', '_N')
