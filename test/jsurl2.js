@@ -2,14 +2,14 @@ import test from 'ava'
 import {stringify, parse, tryParse} from '../lib/jsurl2'
 
 // test macro, both directions
-const cmp = (t, v, s, short) => {
+const cmp = (t, v, s, short, rich) => {
 	// regular
-	t.is(stringify(v), s)
+	t.is(stringify(v, {rich}), s)
 	// roundtrip
-	t.is(stringify(parse(s)), s)
+	t.is(stringify(parse(s), {rich}), s)
 	// short
-	t.is(stringify(v, {short: true}), short)
-	t.is(stringify(parse(short), {short: true}), short)
+	t.is(stringify(v, {short: true, rich}), short)
+	t.is(stringify(parse(short), {short: true, rich}), short)
 }
 cmp.title = (title, v, s) => `${title} ${s}`
 
@@ -33,8 +33,10 @@ test(cmp,
 test(cmp, NaN, '_N~', '_N')
 test(cmp, Infinity, '_N~', '_N')
 test(cmp, -Infinity, '_N~', '_N')
-test(cmp, new Date(1456898746898), '_D2016-03-02T06:05:46.898Z~', '_D2016-03-02T06:05:46.898Z')
-test(cmp, new Date('2017-04-01'), '_D2017-04-01~', '_D2017-04-01')
+test(cmp, new Date(1456898746898), '*2016-03-02T06:05:46.898Z~', '*2016-03-02T06:05:46.898Z')
+test(cmp, new Date('2017-04-01'), '*2017-04-01T00:00:00.000Z~', '*2017-04-01T00:00:00.000Z')
+test(cmp, new Date(1456898746898), '_D2016-03-02T06:05:46.898Z~', '_D2016-03-02T06:05:46.898Z', true)
+test(cmp, new Date('2017-04-01'), '_D2017-04-01~', '_D2017-04-01', true)
 
 // arrays
 test(cmp, [], '!~', '!')
