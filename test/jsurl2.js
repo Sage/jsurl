@@ -114,6 +114,7 @@ test('percent-escaped percent-escaped single quotes', t => {
 
 test('tryParse', t => {
 	t.is(tryParse('_N~'), null)
+	t.is(tryParse('%5FN', 5, {deURI: true}), null)
 	t.is(tryParse('1~', 2), 1)
 	t.is(tryParse('_'), undefined)
 	t.is(tryParse('_', 0), 0)
@@ -125,7 +126,7 @@ test('parse performance', t => {
 	const s = stringify(v)
 	const count = 10000
 	for (let i = 0; i < count; i++) {
-		parse(s)
+		parse(s, {deURI: true})
 	}
 	const ms = Date.now() - n
 	console.log(`v2: ${count} parsed in ${ms}ms, ${ms / count}ms/item`)
