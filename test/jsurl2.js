@@ -4,7 +4,7 @@ import {stringify, parse, tryParse} from '../lib/jsurl2'
 // test macro, both directions
 const cmp = (t, v, s, short, rich) => {
 	// regular
-	t.notRegex(stringify(v, {rich}), /[%?#&=\n\r\0]/, 'has forbidden char');
+	t.notRegex(stringify(v, {rich}), /[%?#&=\n\r\0'<\\]/, 'has forbidden char');
 	t.is(stringify(v, {rich}), s, 'stringified wrong')
 	// roundtrip
 	t.is(stringify(parse(s), {rich}), s, 'roundtrip fails')
@@ -29,6 +29,11 @@ test(cmp,
 	' !"#$%&\'()*+,-./09:;<=>?@AZ[\\]^_`az{|}\n\r\0~',
 	'*_!"*H*S*.*A*"*C*D***P,-./09:;*L*E*G*Q@AZ[*B]^*_`az{|}*N*R*Z*-~',
 	'*_!"*H*S*.*A*"*C*D***P,-./09:;*L*E*G*Q@AZ[*B]^*_`az{|}*N*R*Z*-'
+)
+test(cmp,
+	'Ľồťś ǒƒ ửňìćọđé ẁћəệ!',
+	'*Ľồťś_ǒƒ_ửňìćọđé_ẁћəệ!~',
+	'*Ľồťś_ǒƒ_ửňìćọđé_ẁћəệ!'
 )
 // JSON.stringify converts special numeric values to null
 test(cmp, NaN, '_N~', '_N')
