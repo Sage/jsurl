@@ -1,7 +1,7 @@
 {
   "name": "jsurl",
   "description": "URL friendly JSON-like formatting and parsing",
-  "version": "0.1.4",
+  "version": "2.0.0-rc1",
   "license": "MIT",
   "homepage": "http://github.com/Sage/jsurl",
   "author": "Bruno Jouhier",
@@ -19,6 +19,6 @@
     "test": "ava",
     "test-watch": "ava --watch"
   },
-  "main": "index.js",
+  "main": "lib/jsurl2.js",
   "dependencies": {}
 }

@@ -1,5 +1,5 @@
 import test from 'ava'
-import {stringify, parse, tryParse} from '../lib/jsurl2'
+import {stringify, parse, tryParse} from '..'
 
 // test macro, both directions
 const cmp = (t, v, s, short, rich) => {
