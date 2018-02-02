@@ -118,6 +118,7 @@ test('tryParse', t => {
 	t.is(tryParse('1~', 2), 1)
 	t.is(tryParse('_'), undefined)
 	t.is(tryParse('_', 0), 0)
+	t.is(tryParse('12323NOTANUMBER', 0), 0)
 })
 
 test('parse performance', t => {
