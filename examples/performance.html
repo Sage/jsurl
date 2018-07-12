@@ -4,7 +4,7 @@
 <script src="../lib/jsurl2.js" type="application/javascript"></script>
 <script>
 	const count = 200000
-	const v = { a: [ [1, 2], [], false, {}, true ], b: [], c: { d: 'hello', e: {}, f: [], g: true, n: null } }
+	const v = { a: [[1, 2], [], false, {}, true], b: [], c: { d: 'hello', e: {}, f: [], g: true, n: null } }
 	const JSONParse = () => {
 		const n = Date.now()
 		const s = JSON.stringify(v)
@@ -24,9 +24,9 @@
 	}
 	const v1Parse = () => {
 		const n = Date.now()
-		const s = JSURL.stringify(v)
+		const s = JSURL1.stringify(v)
 		for (let i = 0; i < count; i++) {
-			JSURL.parse(s)
+			JSURL1.parse(s)
 		}
 		const ms = Date.now() - n
 		console.log(`v1: ${count} parsed in ${ms}ms, ${ms / count}ms/item`)
@@ -34,16 +34,16 @@
 	const v1Stringify = () => {
 		const n = Date.now()
 		for (let i = 0; i < count; i++) {
-			JSURL.stringify(v)
+			JSURL1.stringify(v)
 		}
 		const ms = Date.now() - n
 		console.log(`v1: ${count} stringified in ${ms}ms, ${ms / count}ms/item`)
 	}
 	const v2Parse = () => {
 		const n = Date.now()
-		const s = JSURL2.stringify(v)
+		const s = JSURL.stringify(v)
 		for (let i = 0; i < count; i++) {
-			JSURL2.parse(s)
+			JSURL.parse(s)
 		}
 		const ms = Date.now() - n
 		console.log(`v2: ${count} parsed in ${ms}ms, ${ms / count}ms/item`)
@@ -51,7 +51,7 @@
 	const v2Stringify = () => {
 		const n = Date.now()
 		for (let j = 0; j < count; j++) {
-			JSURL2.stringify(v)
+			JSURL.stringify(v)
 		}
 		const ms = Date.now() - n
 		console.log(`v2: ${count} stringified in ${ms}ms, ${ms / count}ms/item`)
