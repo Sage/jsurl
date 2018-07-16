@@ -1,15 +1,29 @@
 const {stringify, parse, tryParse} = require('..')
 
+// It only produces JSON parseable values if they are the same
+const isJsonOk = (v, str) => {
+	try {
+		const out = JSON.parse(str)
+		return v === out
+	} catch (err) {
+		return true
+	}
+}
 // test macro, both directions
 const cmp = (v, s, short, rich) => {
 	// regular
-	expect(stringify(v, {rich})).not.toMatch(/[%?#&=\n\r\0'<\\]/)
-	expect(stringify(v, {rich})).toBe(s)
+	const richStr = stringify(v, {rich})
+	expect(richStr).not.toMatch(/[%?#&=\n\r\0'<\\]/)
+	expect(richStr).toBe(s)
 	// roundtrip
 	expect(stringify(parse(s), {rich})).toBe(s)
 	// short
-	expect(stringify(v, {short: true, rich})).toBe(short)
+	const shortStr = stringify(v, {short: true, rich})
+	expect(shortStr).toBe(short)
 	expect(stringify(parse(short), {short: true, rich})).toBe(short)
+	// not JSON
+	expect(isJsonOk(v, richStr)).toBe(true)
+	expect(isJsonOk(v, shortStr)).toBe(true)
 }
 cmp.title = (title, v, s) => `${title} ${s}`
 
@@ -190,4 +204,13 @@ test('.toJSON()', () => {
 		},
 	}
 	expect(stringify(o)).toBe('hi~')
+})
+
+test('never JSON bareword', () => {
+	expect(stringify('true')).toEqual('true~')
+	expect(stringify('true', {short: true})).toEqual('*true')
+	expect(stringify('false')).toEqual('false~')
+	expect(stringify('false', {short: true})).toEqual('*false')
+	expect(stringify('null')).toEqual('null~')
+	expect(stringify('null', {short: true})).toEqual('*null')
 })
