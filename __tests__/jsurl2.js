@@ -24,6 +24,15 @@ const cmp = (v, s, short, rich) => {
 	// not JSON
 	expect(isJsonOk(v, richStr)).toBe(true)
 	expect(isJsonOk(v, shortStr)).toBe(true)
+	// Can parse the JSON version and is equivalent
+	const jsv = JSON.stringify(v)
+	if (jsv) {
+		if (!rich)
+			expect(JSON.stringify(parse(jsv))).toEqual(JSON.stringify(parse(short)))
+	} else {
+		expect(jsv).toBe(undefined)
+		expect(s).toBe('_U~')
+	}
 }
 cmp.title = (title, v, s) => `${title} ${s}`
 
