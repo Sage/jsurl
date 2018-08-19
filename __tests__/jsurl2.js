@@ -163,6 +163,15 @@ test('percent-escaped percent-escaped single quotes', () => {
 	)
 })
 
+test('whitespace etc', () => {
+	expect(
+		parse('(a~*%00he llo ~ b~ \r \n \f \t *%251fworld~)~', {deURI: true})
+	).toEqual({
+		a: 'hello',
+		b: 'world',
+	})
+})
+
 test('tryParse', () => {
 	expect(tryParse('_N~')).toBe(null)
 	expect(tryParse('%5FN', 5, {deURI: true})).toBe(null)
