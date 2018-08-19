@@ -27,7 +27,7 @@ const cmp = (v, s, short, rich) => {
 	// Can parse the JSON version and is equivalent
 	const jsv = JSON.stringify(v)
 	if (jsv) {
-		expect(parse(jsv)).toEqual(parse(short))
+		if (!rich) expect(parse(jsv)).toEqual(parse(short))
 	} else {
 		expect(jsv).toBe(undefined)
 		expect([v, s]).toEqual([v, '_U~'])
