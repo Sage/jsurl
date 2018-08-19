@@ -14,7 +14,7 @@ JSURL has been designed to be
   - You can safely put it in `<script>` tags inside single-quoted Javascript strings (unlike JSON)
   - Added whitespace can simply be removed, it is not used
 - Extensible:
-  - `rich` mode encodes/decodes `Date` objects and `undefined`
+  - `rich` mode encodes/decodes `Date` objects, `undefined`, `NaN` and `Infinity`
   - Future: The encoding dictionary can be extended, providing more space optimization
   - Future: You can provide your own stringify/parse for custom objects
 - Easy upgrade:

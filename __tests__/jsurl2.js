@@ -67,6 +67,9 @@ test('basics', () => {
 	cmp(NaN, '_N~', '_N')
 	cmp(Infinity, '_N~', '_N')
 	cmp(-Infinity, '_N~', '_N')
+	cmp(NaN, '_n~', '_n', true)
+	cmp(Infinity, '_I~', '_I', true)
+	cmp(-Infinity, '_J~', '_J', true)
 	cmp(
 		new Date(1456898746898),
 		'*2016-03-02T06:05:46.898Z~',
