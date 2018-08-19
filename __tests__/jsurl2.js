@@ -14,7 +14,7 @@ const cmp = (v, s, short, rich) => {
 	// regular
 	const richStr = stringify(v, {rich})
 	expect(richStr).not.toMatch(/[%?#&=\n\r\0'<\\]/)
-	expect(richStr).toBe(s)
+	expect([v, richStr]).toEqual([v, s])
 	// roundtrip
 	expect(stringify(parse(s), {rich})).toBe(s)
 	// short
@@ -27,11 +27,10 @@ const cmp = (v, s, short, rich) => {
 	// Can parse the JSON version and is equivalent
 	const jsv = JSON.stringify(v)
 	if (jsv) {
-		if (!rich)
-			expect(JSON.stringify(parse(jsv))).toEqual(JSON.stringify(parse(short)))
+		expect(parse(jsv)).toEqual(parse(short))
 	} else {
 		expect(jsv).toBe(undefined)
-		expect(s).toBe('_U~')
+		expect([v, s]).toEqual([v, '_U~'])
 	}
 }
 cmp.title = (title, v, s) => `${title} ${s}`
@@ -100,8 +99,23 @@ test('basics', () => {
 			0,
 			'hello world\u203c',
 		],
+		'!_N~_N~_N~_F~0~hello_world\u203c~',
+		'!_N~_N~_N~_F~0~hello_world\u203c'
+	)
+	cmp(
+		[
+			undefined,
+			function() {
+				foo()
+			},
+			null,
+			false,
+			0,
+			'hello world\u203c',
+		],
 		'!_U~_U~_N~_F~0~hello_world\u203c~',
-		'!_U~_U~_N~_F~0~hello_world\u203c'
+		'!_U~_U~_N~_F~0~hello_world\u203c',
+		true
 	)
 
 	// objects

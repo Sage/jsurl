@@ -14,10 +14,15 @@ JSURL has been designed to be
   - You can safely put it in `<script>` tags inside single-quoted Javascript strings (unlike JSON)
   - Added whitespace can simply be removed, it is not used
 - Extensible:
-  - `rich` mode encodes/decodes `Date` objects
+  - `rich` mode encodes/decodes `Date` objects and `undefined`
   - Future: The encoding dictionary can be extended, providing more space optimization
   - Future: You can provide your own stringify/parse for custom objects
-- Easy upgrade: it can parse JSON as well, and it will never generate valid JSON except when it's the correct representation
+- Easy upgrade:
+  - Simply replace `JSON.parse` with `JSURL.parse` and `JSON.stringify` with `JSURL.stringify`
+  - Parses JSON as well
+  - A stringify/parse cycle generates the same output as with JSON
+  - (one exception: it always returns a string, even when JSON would return `undefined`)
+  - It will never generate valid JSON except when it's the correct representation
 
 Given its speed and size, it is well-suited to pass JS values to scripts in HTML, like initial data after Server-Side-Rendering. To do so, embed the result inside a single-quoted string (not double-quoted) and parse that in your script.
 
@@ -111,7 +116,6 @@ Since browsers may choose to encode any character with URI escaping, and special
 
 ## Roadmap
 
-- JSON compatible: `rich: false` should generate exact same result object as JSON
 - Indenting
   - `stringify` adds whitespace (post-process, too slow in parser code)
 - Encoding dictionary
