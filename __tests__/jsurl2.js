@@ -1,3 +1,4 @@
+const blns = require('blns')
 const {stringify, parse, tryParse} = require('..')
 
 // It only produces JSON parseable values if they are the same
@@ -14,12 +15,14 @@ const cmp = (v, s, short, rich) => {
 	// regular
 	const richStr = stringify(v, {rich})
 	expect(richStr).not.toMatch(/[%?#&=\n\r\0'<\\\u2028]/)
-	expect([v, richStr]).toEqual([v, s])
+	if (s) expect([v, richStr]).toEqual([v, s])
+	else s = richStr
 	// roundtrip
 	expect(stringify(parse(s), {rich})).toBe(s)
 	// short
 	const shortStr = stringify(v, {short: true, rich})
-	expect(shortStr).toBe(short)
+	if (short) expect(shortStr).toBe(short)
+	else short = shortStr
 	expect(stringify(parse(short), {short: true, rich})).toBe(short)
 	// not JSON
 	expect(isJsonOk(v, richStr)).toBe(true)
@@ -248,4 +251,9 @@ test('never JSON bareword', () => {
 	expect(stringify('false', {short: true})).toEqual('*false')
 	expect(stringify('null')).toEqual('null~')
 	expect(stringify('null', {short: true})).toEqual('*null')
+})
+
+test('naughty strings', () => {
+	expect.hasAssertions()
+	blns.forEach(naughty => cmp(naughty))
 })
