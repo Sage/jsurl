@@ -1,20 +1,30 @@
 {
-  "name": "jsurl",
-  "description": "URL friendly JSON-like formatting and parsing",
-  "version": "0.1.4",
-  "license": "MIT",
-  "homepage": "http://github.com/Sage/jsurl",
-  "author": "Bruno Jouhier",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/Sage/jsurl.git"
-  },
-  "devDependencies": {
-    "qunit": "^0.7.7"
-  },
-  "directories": {"lib": "./lib" },
-  "scripts": {
-    "test": "node test"
-  },
-  "main": "index.js"
+	"name": "jsurl",
+	"description": "URL friendly JSON-like formatting and parsing",
+	"version": "2.0.0-rc1",
+	"license": "MIT",
+	"homepage": "http://github.com/Sage/jsurl",
+	"author": "Bruno Jouhier",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/Sage/jsurl.git"
+	},
+	"main": "lib/jsurl2.js",
+	"dependencies": {},
+	"devDependencies": {
+		"blns": "^2.0.4",
+		"jest": "^23.4.0",
+		"jest-cli": "^23.4.0"
+	},
+	"files": [
+		"lib",
+		"v1.js"
+	],
+	"directories": {
+		"lib": "./lib"
+	},
+	"scripts": {
+		"test": "jest",
+		"test-watch": "jest --watch"
+	}
 }
